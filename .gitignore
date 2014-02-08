@@ -1,0 +1,27 @@
+Bin/
+bin/
+obj/
+Debug/
+Release/
+TestResults/
+Backup1/
+*.vsp
+*.sdf
+*.suo
+*.cachefile
+*.user
+*cachefile-*.txt
+*_fxc.dat
+*_fxc.err
+/External Libs
+.Cache/
+/Game/AirMess/Design
+/Game/AirMess/Content/Build
+/Libs/SharpDX/RuntimeAssemblies
+*.opensdf
+*.ipch
+*.shaderInfo
+UpgradeLog2.htm
+/Engine/Backup*/
+/Game/AirMess/Backup*/
+/Build
