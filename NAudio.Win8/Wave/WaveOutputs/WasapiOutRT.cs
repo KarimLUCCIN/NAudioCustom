@@ -88,7 +88,7 @@ namespace NAudio.Win8.Wave.WaveOutputs
             return MediaDevice.GetDefaultAudioRenderId(AudioDeviceRole.Default);
         }
 
-        private async void PlayThread()
+        private void PlayThread()
         {
             MediaFoundationResampler mediaFoundationResampler = null;
             IWaveProvider playbackProvider = this.sourceProvider;
@@ -134,7 +134,7 @@ namespace NAudio.Win8.Wave.WaveOutputs
                 // play the buffer out
                 while (audioClient.CurrentPadding > 0)
                 {
-                    await Task.Delay(latencyMilliseconds/2);
+                    Task.Delay(latencyMilliseconds/2).Wait();
                 }
                 audioClient.Stop();
                 if (playbackState == PlaybackState.Stopped)
@@ -214,6 +214,36 @@ namespace NAudio.Win8.Wave.WaveOutputs
 
         #region IWavePlayer Members
 
+        Task playTask = null;
+        bool preventNewPlayTaskCreation = false;
+
+        /// <summary>
+        /// Waits for the playtask to be finished.
+        /// </summary>
+        /// <param name="preventNewPlayTaskCreation">True to prevent a new play task from being started</param>
+        public void WaitPlayTask(bool preventNewPlayTaskCreation)
+        {
+            if (preventNewPlayTaskCreation)
+                this.preventNewPlayTaskCreation = preventNewPlayTaskCreation;
+
+            if(playTask != null)
+            {
+                playTask.Wait();
+            }
+        }
+
+        /// <summary>
+        /// Indicate if the underlying play thread has finished or not 
+        /// </summary>
+        /// <returns></returns>
+        public bool PlayTaskFinished
+        {
+            get
+            {
+                return playTask == null || playTask.IsCompleted;
+            }
+        }
+
         /// <summary>
         /// Begin Playback
         /// </summary>
@@ -221,10 +251,10 @@ namespace NAudio.Win8.Wave.WaveOutputs
         {
             if (playbackState != PlaybackState.Playing)
             {
-                if (playbackState == PlaybackState.Stopped)
+                if (playbackState == PlaybackState.Stopped && !preventNewPlayTaskCreation)
                 {
                     playbackState = PlaybackState.Playing;
-                    Task.Run(() => PlayThread());
+                    playTask = Task.Run((Action)PlayThread);
                 }
                 else
                 {
