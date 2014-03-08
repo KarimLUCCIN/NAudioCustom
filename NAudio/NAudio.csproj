@@ -106,6 +106,7 @@
     <Compile Include="Dsp\WdlResampler.cs" />
     <Compile Include="FileFormats\Wav\WaveFileChunkReader.cs" />
     <Compile Include="MediaFoundation\AudioSubtypes.cs" />
+    <Compile Include="MediaFoundation\IMediaFoundationTransform.cs" />
     <Compile Include="MediaFoundation\IMFReadWriteClassFactory.cs" />
     <Compile Include="MediaFoundation\MediaFoundationErrors.cs" />
     <Compile Include="MediaFoundation\MediaTypes.cs" />

@@ -11,6 +11,7 @@ using NAudio.CoreAudioApi;
 using NAudio.CoreAudioApi.Interfaces;
 using NAudio.Wave;
 using Windows.Media.Devices;
+using NAudio.MediaFoundation;
 
 namespace NAudio.Win8.Wave.WaveOutputs
 {
@@ -90,7 +91,7 @@ namespace NAudio.Win8.Wave.WaveOutputs
 
         private void PlayThread()
         {
-            MediaFoundationResampler mediaFoundationResampler = null;
+            IMediaFoundationTransform mediaFoundationResampler = null;
             IWaveProvider playbackProvider = this.sourceProvider;
             Exception exception = null;
 
@@ -173,9 +174,13 @@ namespace NAudio.Win8.Wave.WaveOutputs
         /// <param name="provider"></param>
         /// <param name="format"></param>
         /// <returns></returns>
-        protected virtual MediaFoundationResampler CreateResampler(IWaveProvider provider, WaveFormat format)
+        protected virtual IMediaFoundationTransform CreateResampler(IWaveProvider provider, WaveFormat format)
         {
+#if(NETFX_CORE)
+            throw new NotSupportedException();
+#else
             return new MediaFoundationResampler(provider, format);
+#endif
         }
 
         private void RaisePlaybackStopped(Exception e)

@@ -7,6 +7,7 @@ using NAudio.Utils;
 
 namespace NAudio.Wave
 {
+#if(!NETFX_CORE)
     /// <summary>
     /// Media Foundation Encoder class allows you to use Media Foundation to encode an IWaveProvider
     /// to any supported encoding format
@@ -303,4 +304,5 @@ namespace NAudio.Wave
             Dispose(false);
         }
     }
+#endif
 }

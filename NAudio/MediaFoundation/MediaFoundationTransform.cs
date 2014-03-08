@@ -9,7 +9,7 @@ namespace NAudio.MediaFoundation
     /// An abstract base class for simplifying working with Media Foundation Transforms
     /// You need to override the method that actually creates and configures the transform
     /// </summary>
-    public abstract class MediaFoundationTransform : IWaveProvider, IDisposable
+    public abstract class MediaFoundationTransform : IWaveProvider, IDisposable, IMediaFoundationTransform
     {
         /// <summary>
         /// The Source Provider

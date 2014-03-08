@@ -5,6 +5,7 @@ using NAudio.MediaFoundation;
 
 namespace NAudio.Wave
 {
+#if(!NETFX_CORE)
     /// <summary>
     /// The Media Foundation Resampler Transform
     /// </summary>
@@ -174,4 +175,5 @@ namespace NAudio.Wave
         }
 
     }
+#endif
 }

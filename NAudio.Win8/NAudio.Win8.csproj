@@ -394,6 +394,9 @@
     <Compile Include="..\NAudio\MediaFoundation\AudioSubtypes.cs">
       <Link>MediaFoundation\AudioSubtypes.cs</Link>
     </Compile>
+    <Compile Include="..\NAudio\MediaFoundation\IMediaFoundationTransform.cs">
+      <Link>MediaFoundation\IMediaFoundationTransform.cs</Link>
+    </Compile>
     <Compile Include="..\NAudio\MediaFoundation\IMFActivate.cs">
       <Link>MediaFoundation\IMFActivate.cs</Link>
     </Compile>
